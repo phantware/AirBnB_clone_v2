@@ -5,8 +5,8 @@ import time
 from fabric.api import local
 from fabric.operations import env, put, run
 
-env.hosts = ['34.231.110.240', '3.237.3.86']
-env.user = 'ubuntu'
+env.hosts = ['34.231.110.240', 3.237.3.86']
+
 
 def do_pack():
     """Generate an tgz archive from web_static folder"""
@@ -29,13 +29,13 @@ def do_deploy(archive_path):
         file = archive_path.split("/")[-1]
         folder = ("/data/web_static/releases/" + file.split(".")[0])
         put(archive_path, "/tmp/")
-        run("sudo mkdir -p {}".format(folder))
-        run("sudo tar -xzf /tmp/{} -C {}".format(file, folder))
-        run("sudo rm /tmp/{}".format(file))
-        run("sudo mv {}/web_static/* {}/".format(folder, folder))
-        run("sudo rm -rf {}/web_static".format(folder))
-        run('sudo rm -rf /data/web_static/current')
-        run("sudo ln -s {} /data/web_static/current".format(folder))
+        run("mkdir -p {}".format(folder))
+        run("tar -xzf /tmp/{} -C {}".format(file, folder))
+        run("rm /tmp/{}".format(file))
+        run("mv {}/web_static/* {}/".format(folder, folder))
+        run("rm -rf {}/web_static".format(folder))
+        run('rm -rf /data/web_static/current')
+        run("ln -s {} /data/web_static/current".format(folder))
         print("Deployment done")
         return True
     except:
