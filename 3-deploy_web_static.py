@@ -9,6 +9,7 @@ env.hosts = ['18.207.241.255', '3.235.243.226']
 env.user = 'ubuntu'
 
 def do_pack():
+    
     """Generate an tgz archive from web_static folder"""
     try:
         local("mkdir -p versions")
